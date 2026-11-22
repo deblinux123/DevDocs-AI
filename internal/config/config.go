@@ -1,7 +1,6 @@
 package config
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strconv"
@@ -21,7 +20,7 @@ type Config struct {
 
 func Load() (*Config, error) {
 	if err := godotenv.Load(); err != nil {
-		if errors.Is(err, os.ErrExist) {
+		if !os.IsNotExist(err) {
 			return nil, fmt.Errorf("failed to load .env: %w", err)
 		}
 	}
