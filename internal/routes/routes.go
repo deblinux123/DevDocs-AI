@@ -7,4 +7,5 @@ import (
 
 func Setup(app *fiber.App) {
 	app.Get("/", handlers.Home)
+	app.Get("/health", handlers.Health)
 }
