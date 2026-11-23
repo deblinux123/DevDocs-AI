@@ -14,6 +14,8 @@ import (
 
 type MarkdownParser struct{}
 
+var _ Parser = (*MarkdownParser)(nil)
+
 func (p *MarkdownParser) Parse(
 	ctx context.Context,
 	path string,
