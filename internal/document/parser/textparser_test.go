@@ -106,3 +106,22 @@ func TestTextParser_ContextCanceled(t *testing.T) {
 		t.Fatalf("expected nil doc, %+v", doc)
 	}
 }
+
+func TestTextParser_FileNotFound(t *testing.T) {
+	path := "documents/missing.txt"
+
+	textParser := &TextParser{}
+
+	doc, err := textParser.Parse(
+		context.Background(),
+		path,
+	)
+
+	if err == nil {
+		t.Fatalf("expected error, got nil")
+	}
+
+	if doc != nil {
+		t.Fatalf("expected nil doc, got %+v", doc)
+	}
+}
