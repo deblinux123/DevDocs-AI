@@ -102,6 +102,6 @@ func TestMarkdownParser_ContextCanceled(t *testing.T) {
 	}
 
 	if doc != nil {
-		t.Fatalf("expected nil cod, got %+v", doc)
+		t.Fatalf("expected nil doc, got %+v", doc)
 	}
 }
