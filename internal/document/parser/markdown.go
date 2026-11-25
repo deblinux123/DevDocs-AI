@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/deblinux123/DevDocs-AI/internal/document"
 )
@@ -30,20 +29,5 @@ func (p *MarkdownParser) Parse(
 		return nil, err
 	}
 
-	// 5. extracte file name
-	name := filepath.Base(path)
-	fileType := strings.ToLower(filepath.Ext(path))
-
-	// 6. create document
-	doc := &document.Document{
-		ID:        document.NewID(),
-		Name:      name,
-		Path:      path,
-		Type:      fileType,
-		Content:   string(content),
-		CreatedAt: time.Now(),
-	}
-
-	// 7. return document
-	return doc, nil
+	return newDocument(path, content), nil
 }

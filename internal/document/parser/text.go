@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"path/filepath"
 	"strings"
-	"time"
 
 	"github.com/deblinux123/DevDocs-AI/internal/document"
 )
@@ -29,19 +28,5 @@ func (p *TextParser) Parse(
 		return nil, err
 	}
 
-	name := filepath.Base(path)
-	fileType := strings.ToLower(filepath.Ext(path))
-
-	doc := &document.Document{
-		ID:        document.NewID(),
-		Name:      name,
-		Path:      path,
-		Type:      fileType,
-		Content:   string(content),
-		CreatedAt: time.Now(),
-	}
-
-	// return doc
-
-	return doc, nil
+	return newDocument(path, content), nil
 }
