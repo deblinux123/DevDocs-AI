@@ -2,6 +2,7 @@ package parser
 
 import (
 	"context"
+	"errors"
 	"os"
 	"path/filepath"
 	"testing"
@@ -80,5 +81,28 @@ func TestTextParser_UnsupportedFileType(t *testing.T) {
 
 	if doc != nil {
 		t.Fatalf("expected nil docmuent, got %+v", doc)
+	}
+}
+
+func TestTextParser_ContextCanceled(t *testing.T) {
+	ctx, cancel := context.WithCancel(
+		context.Background(),
+	)
+
+	cancel()
+
+	textParser := &TextParser{}
+
+	doc, err := textParser.Parse(
+		ctx,
+		"test.txt",
+	)
+
+	if !errors.Is(err, context.Canceled) {
+		t.Fatalf("expected context canceled, got %v", err)
+	}
+
+	if doc != nil {
+		t.Fatalf("expected nil doc, %+v", doc)
 	}
 }
